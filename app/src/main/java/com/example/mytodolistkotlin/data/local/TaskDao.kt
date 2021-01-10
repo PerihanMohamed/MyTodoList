@@ -16,6 +16,6 @@ interface TaskDao {
     suspend fun update(task: Tasks)
 
     @Query("SELECT * FROM  task_table")
-    suspend fun getAllList(task: Tasks) :Flow<List<Tasks>>
+     fun getAllList() :Flow<List<Tasks>>
 
 }
