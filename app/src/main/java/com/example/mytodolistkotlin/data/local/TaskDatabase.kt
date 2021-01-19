@@ -26,9 +26,17 @@ abstract class TaskDatabase : RoomDatabase() {
            val dao = database.get().taskDao()
 
             coroutineScope.launch {
-                dao.insert(Tasks("Complete your code"))
-                dao.insert(Tasks("Dont Give Up"))
-                dao.insert(Tasks("i know you are working so hard"))
+//                dao.insert(Tasks("Complete your code"))
+//                dao.insert(Tasks("Dont Give Up"))
+//                dao.insert(Tasks("i know you are working so hard"))
+                dao.insert(Tasks("Wash the dishes"))
+                dao.insert(Tasks("Do the laundry"))
+                dao.insert(Tasks("Buy groceries", important = true))
+                dao.insert(Tasks("Prepare food", completed = true))
+                dao.insert(Tasks("Call mom"))
+                dao.insert(Tasks("Visit grandma", completed = true))
+                dao.insert(Tasks("Repair my bike"))
+                dao.insert(Tasks("Call Elon Musk"))
 
             }
 

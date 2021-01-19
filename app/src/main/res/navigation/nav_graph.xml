@@ -7,5 +7,22 @@
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.example.mytodolistkotlin.ui.tasks.TasksFragment"
-        android:label="TasksFragment" />
+        android:label="Tasks">
+        <action
+            android:id="@+id/action_tasksFragment_to_addEditFragment"
+            app:destination="@id/addEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditFragment"
+        android:name="com.example.mytodolistkotlin.ui.addedit.AddEditFragment"
+        android:label="{title}" >
+        <argument
+            android:name="task"
+            app:argType="com.example.mytodolistkotlin.model.Tasks"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>

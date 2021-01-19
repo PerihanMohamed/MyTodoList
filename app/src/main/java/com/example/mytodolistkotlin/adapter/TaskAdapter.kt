@@ -9,10 +9,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mytodolistkotlin.databinding.ItemTaskBinding
 import com.example.mytodolistkotlin.model.Tasks
 
-class TaskAdapter : ListAdapter < Tasks ,TaskAdapter.TaskViewHolder> (DiffUtillCallBack()) {
+class TaskAdapter(private val listener :onItemClickListener ) : ListAdapter < Tasks ,TaskAdapter.TaskViewHolder> (DiffUtillCallBack()) {
 
-    class TaskViewHolder(private val itemTaskBinding: ItemTaskBinding) :
+      inner class TaskViewHolder(private val itemTaskBinding: ItemTaskBinding) :
         RecyclerView.ViewHolder(itemTaskBinding.root) {
+
+         init {
+             itemTaskBinding.apply {
+                 root.setOnClickListener {
+                     val position = adapterPosition
+                     if(position != RecyclerView.NO_POSITION){
+                          val task = getItem(position)
+                         listener.onitemClick(task)
+                     }
+                 }
+                 checkBoxCompleted.setOnClickListener {
+                     val position =adapterPosition
+                     if(position != RecyclerView.NO_POSITION ) {
+                         val task = getItem(position)
+                         listener.onCheckBoxCompleted(task , checkBoxCompleted.isChecked)
+                     }
+
+                 }
+             }
+         }
 
         fun bind(tasks: Tasks) {
 
@@ -43,7 +63,7 @@ class TaskAdapter : ListAdapter < Tasks ,TaskAdapter.TaskViewHolder> (DiffUtillC
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskAdapter.TaskViewHolder {
         val itemTaskBinding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(itemTaskBinding)
     }
@@ -51,6 +71,10 @@ class TaskAdapter : ListAdapter < Tasks ,TaskAdapter.TaskViewHolder> (DiffUtillC
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.bind(currentItem)
+    }
+    interface onItemClickListener{
+        fun onitemClick (task:Tasks)
+        fun onCheckBoxCompleted(tasks: Tasks , boxchecked: Boolean)
     }
 }
 
