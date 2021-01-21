@@ -2,4 +2,6 @@
     <string name="app_name">MyToDoListKotlin</string>
     <string name="example_item">Example Item</string>
     <string name="enter_your_task">Enter your task</string>
+    <string name="ok">yes</string>
+    <string name="order_confirmation">"Are you sure you want to delete "</string>
 </resources>

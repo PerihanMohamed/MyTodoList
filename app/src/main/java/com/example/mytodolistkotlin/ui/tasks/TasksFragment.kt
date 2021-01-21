@@ -52,6 +52,7 @@ class TasksFragment :Fragment(R.layout.fragment_tasks)  , TaskAdapter.onItemClic
                     val item = taskadapter.currentList[viewHolder.adapterPosition]
                     viewModel.onSwipeCalled(item)
                 } }).attachToRecyclerView(recyclerviewTasks)
+
             fabAddTask.setOnClickListener {
                 viewModel.openNewTaskclick()
             }
@@ -78,6 +79,9 @@ class TasksFragment :Fragment(R.layout.fragment_tasks)  , TaskAdapter.onItemClic
                       val action = TasksFragmentDirections.actionTasksFragmentToAddEditFragment(event.task , " Edit Task")
                       findNavController().navigate(action)
 
+                  }
+                  is TasksViewModel.TaskEvent.DeleteTasks -> {
+                      val action = TasksFragmentDirections.actionGlobalDele
                   }
 
               }
@@ -124,7 +128,7 @@ class TasksFragment :Fragment(R.layout.fragment_tasks)  , TaskAdapter.onItemClic
                 true
             }
             R.id.delete_tasks -> {
-                true
+                viewModel.DeleteAllDialog()
             }
             else -> super.onOptionsItemSelected(item)
         }

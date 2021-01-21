@@ -12,6 +12,7 @@
             android:id="@+id/action_tasksFragment_to_addEditFragment"
             app:destination="@id/addEditFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/addEditFragment"
         android:name="com.example.mytodolistkotlin.ui.addedit.AddEditFragment"
@@ -25,4 +26,8 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/deleteAllDialogFragment"
+        android:name="com.example.mytodolistkotlin.ui.deletedialog.DeleteAllDialogFragment"
+        android:label="DeleteAllDialogFragment" /><action android:id="@+id/action_global_deleteAllDialogFragment" app:destination="@id/deleteAllDialogFragment"/>
 </navigation>

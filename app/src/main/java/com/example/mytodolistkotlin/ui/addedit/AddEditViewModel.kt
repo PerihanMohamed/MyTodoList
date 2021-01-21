@@ -14,7 +14,8 @@ class AddEditViewMode @ViewModelInject constructor (
         @Assisted private val state: SavedStateHandle
         ) : ViewModel() {
 
-
+//     val AddEditTaskEventChanne = Channel <AddEditTaskEvent>()
+//     val addEditTaskEventChanne = AddEditTaskEventChanne.receiveAsFlow()
 
     val Task  = state.get<Tasks>("task")
 
@@ -29,12 +30,47 @@ class AddEditViewMode @ViewModelInject constructor (
             field =value
             state.set("TaskImportant  " , TaskImportant)
         }
-    
 
-    fun saveTask(tasks: Tasks)  = viewModelScope.launch {
-        taskDao.update(tasks)
+
+    fun saveTask()  {
+         if (TaskName.isBlank()){
+
+         }
+        if  (Task != null){
+
+           val updateTask = Task.copy(name = TaskName , important =  TaskImportant)
+            UpdateTask (updateTask)
+
+        }else {
+            val newTask = Tasks(name =TaskName ,important = TaskImportant)
+            addNewTask(newTask)
+        }
+
+
+
+
     }
 
+//    private fun invalidInput(s: String) = viewModelScope.launch {
+//        AddEditTaskEventChanne.send(AddEditTaskEvent.showUpMessage(s))
+//    }
+
+    private fun UpdateTask(task: Tasks) = viewModelScope.launch {
+//       AddEditTaskEventChanne.send(AddEditTaskEvent.navigateBackWithAResult())
+        taskDao.update(task)
+    }
+
+    private fun addNewTask(task: Tasks)  = viewModelScope.launch {
+//        AddEditTaskEventChanne.send(AddEditTaskEvent.navigateBackWithAResult())
+        taskDao.insert(task)
+    }
+//
+//    sealed class AddEditTaskEvent(){
+//        data class showUpMessage( val msg : String) : AddEditTaskEvent()
+////        data class navigateBackWithAResult(val int: Int) : AddEditTaskEvent()
+//
+//
+//    }
 
 
 }

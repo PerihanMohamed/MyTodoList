@@ -22,7 +22,7 @@
                 />
                 <item
                     android:id="@+id/sort_by_name"
-                    android:title="sort by date"/>
+                    android:title="sort by name"/>
         </menu>
     </item>
 
