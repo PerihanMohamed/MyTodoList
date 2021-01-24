@@ -62,7 +62,7 @@ class TasksViewModel @ViewModelInject constructor(
     }
 
     fun DeleteAllDialog() = viewModelScope.launch {
-
+            TaskEventChannel.send(TaskEvent.DeleteDialogTasks)
     }
 
 
@@ -71,8 +71,8 @@ class TasksViewModel @ViewModelInject constructor(
     sealed class TaskEvent{
         object NavigatetoAddTask : TaskEvent()
         data class NavigatetoEditTaskEvent ( val task: Tasks) : TaskEvent()
-        data class ShowUndoDeleteTaskMessage( val task: Tasks) :TaskEvent()
-        object DeleteTasks : TaskEvent()
+//        data class ShowUndoDeleteTaskMessage( val task: Tasks) :TaskEvent()
+        object DeleteDialogTasks : TaskEvent()
 
     }
 

@@ -18,6 +18,7 @@ import com.example.mytodolistkotlin.adapter.TaskAdapter
 import com.example.mytodolistkotlin.data.local.SortOrder
 import com.example.mytodolistkotlin.databinding.FragmentTasksBinding
 import com.example.mytodolistkotlin.model.Tasks
+import com.example.mytodolistkotlin.utils.exhaustive
 import com.example.mytodolistkotlin.utils.onQueryTextChange
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -80,11 +81,14 @@ class TasksFragment :Fragment(R.layout.fragment_tasks)  , TaskAdapter.onItemClic
                       findNavController().navigate(action)
 
                   }
-                  is TasksViewModel.TaskEvent.DeleteTasks -> {
-                      val action = TasksFragmentDirections.actionGlobalDele
-                  }
 
-              }
+
+                  TasksViewModel.TaskEvent.DeleteDialogTasks -> {
+                    val action = TasksFragmentDirections.actionGlobalDeleteAllDialogFragment()
+                      findNavController().navigate(action)
+
+                  }
+              }.exhaustive
 
 
           }
@@ -129,7 +133,9 @@ class TasksFragment :Fragment(R.layout.fragment_tasks)  , TaskAdapter.onItemClic
             }
             R.id.delete_tasks -> {
                 viewModel.DeleteAllDialog()
+                true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

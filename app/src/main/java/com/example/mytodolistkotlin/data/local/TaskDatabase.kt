@@ -1,9 +1,9 @@
 package com.example.mytodolistkotlin.data.local
 
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.mytodolistkotlin.di.ApplicationScope
 import com.example.mytodolistkotlin.model.Tasks
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -17,7 +17,7 @@ abstract class TaskDatabase : RoomDatabase() {
 
     class TaskCallBack @Inject constructor(
             private val database: Provider<TaskDatabase> ,
-            private val coroutineScope: CoroutineScope
+            @ApplicationScope private val applicationScope: CoroutineScope
     ) : RoomDatabase.Callback(){
 
         override fun onCreate(db: SupportSQLiteDatabase) {
@@ -25,7 +25,7 @@ abstract class TaskDatabase : RoomDatabase() {
 
            val dao = database.get().taskDao()
 
-            coroutineScope.launch {
+            applicationScope.launch {
 //                dao.insert(Tasks("Complete your code"))
 //                dao.insert(Tasks("Dont Give Up"))
 //                dao.insert(Tasks("i know you are working so hard"))
